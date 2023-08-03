@@ -28,6 +28,11 @@ import LoginIcon from '@mui/icons-material/Login';
         link:"/project"
     },
     {
+        title:"Count",
+        // icon:<TaskIcon/>,
+        link:"/counting"
+    },
+    {
         title:"LogOut",
         icon:<LogoutIcon/>,
         link:"/logIn"
