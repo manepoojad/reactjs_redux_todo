@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { cakeSlice } from './slice/cakeSlice'
+import { cakeIceCreamSlice } from './slice/cakeIceCreamSlice'
 
 export const store = configureStore({
-  reducer: {
-    cake:cakeSlice.reducer
-  },
+    reducer: {
+        cakeIceCream: cakeIceCreamSlice.reducer
+    },
 })
