@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { getProjectListAction } from '../thunk/projectThunk'
+import { getProjectListAction, createProjectAction, updateProjectAction, deleteProjectAction } from '../thunk/projectThunk'
 
 const initialState = {
     isLoading: false,
@@ -13,17 +13,47 @@ export const projectSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-
             .addCase(getProjectListAction.pending, (state, action) => {
                 state.isLoading = true
             })
-
             .addCase(getProjectListAction.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.projectList = action.payload
             })
-
             .addCase(getProjectListAction.rejected, (state, action) => {
+                state.isLoading = false
+            })
+
+
+            .addCase(createProjectAction.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(createProjectAction.fulfilled, (state, action) => {
+                state.isLoading = false
+            })
+            .addCase(createProjectAction.rejected, (state, action) => {
+                state.isLoading = false
+            })
+
+
+            .addCase(updateProjectAction.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(updateProjectAction.fulfilled, (state, action) => {
+                state.isLoading = false
+            })
+            .addCase(updateProjectAction.rejected, (state, action) => {
+                state.isLoading = false
+            })
+
+
+            .addCase(deleteProjectAction.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(deleteProjectAction.fulfilled, (state, action) => {
+                state.isLoading = false
+            })
+            .addCase(deleteProjectAction.rejected, (state, action) => {
                 state.isLoading = false
             })
     },

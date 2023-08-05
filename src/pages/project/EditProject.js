@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useParams, useNavigate } from "react-router-dom"
+import { updateProjectAction } from "../../redux/thunk/projectThunk"
+import { useDispatch } from "react-redux"
 
 function EditProject() {
     const navigate = useNavigate()
     const location = useLocation()
     const params = useParams()
     // console.log(params)
+    const dispatch = useDispatch()
 
     const [projectData, setProjectData] = useState({
         date: "",
@@ -67,28 +70,22 @@ function EditProject() {
 
     const updateProjectData = async () => {
         try {
-            const projectDataFromLocation=location.state.projectData
+            const projectDataFromLocation = location.state.projectData
             const requestPayload =
             {
                 id: projectDataFromLocation.id,
                 title: projectData.title,
                 date: projectData.date,
                 description: projectData.description,
-                technology:{
+                technology: {
                     uiTech: projectData.uiTech,
                     backEndTech: projectData.backEndTech,
                 },
                 library: projectData.library
             }
-            // console.log(requestPayload)
-            const response = await fetch('http://localhost:8888/project', {
-                method: "PUT",
-                body: JSON.stringify(requestPayload),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            const responseData = await response.json()
+
+            dispatch(updateProjectAction(requestPayload))
+
             setProjectData({
                 date: "",
                 title: "",

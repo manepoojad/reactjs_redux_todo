@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { createProjectAction } from '../../redux/thunk/projectThunk'
 
 function CreateProject() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [projectData, setProjectData] = useState({
         date: "",
         title: "",
@@ -54,16 +57,9 @@ function CreateProject() {
             },
             library: projectData.library
         }
-        console.log(requestBodyPayload)
-        const response = await fetch('http://localhost:8888/project', {
-            method: "POST",
-            body: JSON.stringify(requestBodyPayload),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const responseData = await response.json()
-        console.log(responseData)
+
+        dispatch(createProjectAction(requestBodyPayload))
+
         setProjectData({
             date: "",
             title: "",

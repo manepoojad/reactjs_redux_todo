@@ -1,13 +1,16 @@
 import { Table } from "react-bootstrap"
 import { useNavigate, useLocation, useParams } from "react-router-dom"
 import React, { useState, useEffect } from "react"
+import { deleteProjectAction } from "../../redux/thunk/projectThunk"
+import { useDispatch } from "react-redux"
 
 
 function DetailOfProject() {
     const navigate = useNavigate()
     const location = useLocation()
     const params = useParams()
-    console.log(params)
+    // console.log(params)
+    const dispatch = useDispatch()
 
     const [projectData, setProjectData] = useState({
         date: "",
@@ -35,14 +38,7 @@ function DetailOfProject() {
     }
 
     const handleDeleteProjectDetail = async (projectId) => {
-        console.log('delete function called')
-        const response = await fetch(`http://localhost:8888/project/${projectId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const responseData = await response.json()
+       await dispatch(deleteProjectAction(projectId))
         navigate('/project')
     }
 
@@ -50,7 +46,7 @@ function DetailOfProject() {
 
         navigate(`/editProject/${params.projectId}`, {
             state: {
-                projectData:projectData
+                projectData: projectData
             }
         })
     }

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { getProjectListAction } from '../../redux/thunk/projectThunk'
+import { getProjectListAction, deleteProjectAction } from '../../redux/thunk/projectThunk'
+
 
 
 
@@ -15,26 +16,15 @@ function Project() {
 
   const projectList = state.project.projectList
 
-
-
-
-
   useEffect(() => {
     dispatch(getProjectListAction())
 
   }, [])
 
-
   const handleDeleteProjectData = async (projectId) => {
-    console.log('delete function called')
-    const response = await fetch(`http://localhost:8888/project/${projectId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const responseData = await response.json()
+    await dispatch(deleteProjectAction(projectId))
     dispatch(getProjectListAction())
+
   }
 
   const handleEditProjectData = (item) => {
