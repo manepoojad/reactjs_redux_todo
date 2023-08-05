@@ -2,30 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
+import { getProjectListAction } from '../../redux/thunk/projectThunk'
+
 
 
 function Project() {
   const navigate = useNavigate()
-  const [projectList, setProjectList] = useState([])
+  const dispatch = useDispatch()
+  const state = useSelector(state => state)
+  console.log(state)
+
+  const projectList = state.project.projectList
+
+
+
+
 
   useEffect(() => {
-    getProjectList()
+    dispatch(getProjectListAction())
 
   }, [])
 
-  const getProjectList = async () => {
-
-    const response = await fetch('http://localhost:8888/project', {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const responseData = await response.json()
-    console.log(responseData)
-    setProjectList(responseData)
-
-  }
 
   const handleDeleteProjectData = async (projectId) => {
     console.log('delete function called')
@@ -36,8 +34,7 @@ function Project() {
       }
     })
     const responseData = await response.json()
-    getProjectList()
-
+    dispatch(getProjectListAction())
   }
 
   const handleEditProjectData = (item) => {
@@ -63,6 +60,10 @@ function Project() {
 
   return (
     <div>
+      {
+        state.project.isLoading && <div>loading...</div>
+      }
+
       <div className='d-flex justify-content-end'>
         <NavLink to='/CreateProject'>
           <button style={{ color: 'blanchedalmond' }}>Create Project</button>

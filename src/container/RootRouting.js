@@ -6,18 +6,17 @@ import LogIn from '../pages/logIn/LogIn';
 function RootRouting() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route
-        path="/logIn"
-        element={<LogIn />}
-      />
-      <Route
-        path='/*'
-        element={<PostLoginRoutes />}
-      />
-      
-    </Routes>
-  </BrowserRouter>
+      <Routes>
+        <Route
+          path="/logIn"
+          element={<LogIn />}
+        />
+        <Route
+          path='/*'
+          element={<PostLoginRoutes />}
+        />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
