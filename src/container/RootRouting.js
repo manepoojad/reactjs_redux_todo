@@ -1,8 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import RoutingPostLogin from './RoutingPostLogin';
+import PostLoginRoutes from './PostLoginRoutes';
 import LogIn from '../pages/logIn/LogIn';
-import Project from '../pages/project/Project'
 
 function RootRouting() {
   return (
@@ -14,12 +13,9 @@ function RootRouting() {
       />
       <Route
         path='/*'
-        element={<RoutingPostLogin />}
+        element={<PostLoginRoutes />}
       />
-       <Route
-        path='/*'
-        element={<Project />}
-      />
+      
     </Routes>
   </BrowserRouter>
   )
