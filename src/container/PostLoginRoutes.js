@@ -9,6 +9,7 @@ import DetailOfProject from '../pages/project/DetailOfProject';
 import EditProject from '../pages/project/EditProject';
 import CreateProject from '../pages/project/CreateProject';
 import Counting from '../pages/counting/Counting';
+import Student from '../pages/student/Student';
 
 function RoutingPostLogin() {
   return (
@@ -24,6 +25,7 @@ function RoutingPostLogin() {
         <Route path="/editProject/:projectId" element={<EditProject />} />
         <Route path="/detailOfProject/:projectId" element={<DetailOfProject />} />
         <Route path="/counting" element={<Counting/>} />
+        <Route path="/student" element={<Student/>} />
       </Routes>
     </div>
 

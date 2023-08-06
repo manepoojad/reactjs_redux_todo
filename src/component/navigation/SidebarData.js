@@ -31,6 +31,11 @@ import LoginIcon from '@mui/icons-material/Login';
         // icon:<TaskIcon/>,
         link:"/counting"
     },
+    {
+        title:"Student",
+        // icon:<TaskIcon/>,
+        link:"/student"
+    },
     
 
   ]

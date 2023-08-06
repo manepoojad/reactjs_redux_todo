@@ -1,10 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
 
 export const getProjectListAction = createAsyncThunk(
     'project/getProjectListAction',
     async (arg, thunkAPI) => {
         try {
-            const response = await fetch('http://localhost:8888/project', {
+            /*
+             response = await fetch('http://localhost:8888/project', {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -14,6 +16,11 @@ export const getProjectListAction = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(responseData)
             }
+            */
+
+            const response = await axios.get('http://localhost:8888/project');
+            const responseData = response.data
+
             return responseData
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response.data)
@@ -25,7 +32,7 @@ export const createProjectAction = createAsyncThunk(
     'project/createProjectAction',
     async (arg, thunkAPI) => {
         try {
-            debugger
+            /*
             const response = await fetch('http://localhost:8888/project', {
                 method: "POST",
                 body: JSON.stringify(arg),
@@ -37,6 +44,11 @@ export const createProjectAction = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(responseData)
             }
+            */
+
+            const response = await axios.post('http://localhost:8888/project', arg)
+            const responseData = response.data
+
             return responseData
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response.data)
@@ -49,7 +61,7 @@ export const updateProjectAction = createAsyncThunk(
     'project/updateProjectAction',
     async (arg, thunkAPI) => {
         try {
-            debugger
+            /*
             const response = await fetch('http://localhost:8888/project', {
                 method: "PUT",
                 body: JSON.stringify(arg),
@@ -61,6 +73,11 @@ export const updateProjectAction = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(responseData)
             }
+            */
+
+            const response = await axios.put('http://localhost:8888/project', arg)
+            const responseData = response.data
+
             return responseData
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response.data)
@@ -73,7 +90,7 @@ export const deleteProjectAction = createAsyncThunk(
     'project/deleteProjectAction',
     async (arg, thunkAPI) => {
         try {
-            debugger
+            /*
             const response = await fetch(`http://localhost:8888/project/${arg}`, {
                 method: "DELETE",
                 headers: {
@@ -84,6 +101,11 @@ export const deleteProjectAction = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(responseData)
             }
+            */
+
+            const response = await axios.delete(`http://localhost:8888/project/${arg}`);
+            const responseData = response.data
+
             return responseData
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response.data)
