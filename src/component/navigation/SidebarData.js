@@ -3,7 +3,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import TaskIcon from '@mui/icons-material/Task';
-import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 
   export const SidebarData= [
@@ -32,11 +31,7 @@ import LoginIcon from '@mui/icons-material/Login';
         // icon:<TaskIcon/>,
         link:"/counting"
     },
-    {
-        title:"LogOut",
-        icon:<LogoutIcon/>,
-        link:"/logIn"
-    },
+    
 
   ]
   

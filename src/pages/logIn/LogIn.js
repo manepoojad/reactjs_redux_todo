@@ -1,9 +1,12 @@
+import './login.css'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import './login.css'
+import { useDispatch } from 'react-redux';
+import { userLoginAction } from '../../redux/thunk/authThunk';
 
 function LogIn() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -21,40 +24,20 @@ function LogIn() {
   // console.log(password)
 
   const handleSubmit = async () => {
-    const requestLoginPayload = {
-      email: userName,
-      password: password
-    }
-    // console.log(requestLoginPayload)
-    // debugger
     try {
-      const response = await fetch('http://localhost:8888/user/authJWT/login', {
-        method: "POST",
-        body: JSON.stringify(requestLoginPayload),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const responseData = await response.json()
-      // console.log(responseData)
-      if (!response.ok) {
-        throw new Error(responseData)
+      const requestLoginPayload = {
+        email: userName,
+        password: password
       }
+      const responseData = await dispatch(userLoginAction(requestLoginPayload)).unwrap()
       const stringifyData = JSON.stringify(responseData)
       localStorage.setItem("loginData", stringifyData)
-      // console.log(stringifyData)
+
       navigate("/")
 
     } catch (error) {
       console.log(error)
     }
-
-
-
-
-
-
-
   }
 
   const handleCancelLogin = () => {
