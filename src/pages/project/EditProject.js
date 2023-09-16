@@ -111,6 +111,7 @@ function EditProject() {
             backEndTech: "",
             library: []
         })
+        navigate("/project")
     }
 
     return (

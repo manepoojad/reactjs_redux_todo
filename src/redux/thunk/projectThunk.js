@@ -18,7 +18,7 @@ export const getProjectListAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.get('http://localhost:8888/project');
+            const response = await axios.get('http://localhost:8000/project');
             const responseData = response.data
 
             return responseData
@@ -46,7 +46,7 @@ export const createProjectAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.post('http://localhost:8888/project', arg)
+            const response = await axios.post('http://localhost:8000/project', arg)
             const responseData = response.data
 
             return responseData
@@ -75,7 +75,7 @@ export const updateProjectAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.put('http://localhost:8888/project', arg)
+            const response = await axios.put('http://localhost:8000/project', arg)
             const responseData = response.data
 
             return responseData
@@ -103,7 +103,7 @@ export const deleteProjectAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.delete(`http://localhost:8888/project/${arg}`);
+            const response = await axios.delete(`http://localhost:8000/project/${arg}`);
             const responseData = response.data
 
             return responseData

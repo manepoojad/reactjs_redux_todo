@@ -44,7 +44,7 @@ function DetailOfProject() {
 
     const handleEditProjectData = () => {
 
-        navigate(`/editProject/${params.projectId}`, {
+        navigate(`/project/edit/${params.projectId}`, {
             state: {
                 projectData: projectData
             }
