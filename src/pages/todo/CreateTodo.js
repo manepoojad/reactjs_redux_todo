@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createProjectAction } from "../../redux/thunk/projectThunk";
+import { createTodoAction } from "../../redux/thunk/todoThunk";
 
-function CreateProject() {
+function CreateTodo() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [projectData, setProjectData] = useState({
+  const [todoData, setTodoData] = useState({
     date: "",
     title: "",
     description: "",
@@ -22,42 +22,42 @@ function CreateProject() {
 
     if (type == "checkbox") {
       const checked = e.target.checked;
-      let newValue = [...projectData.library];
+      let newValue = [...todoData.library];
       if (checked) {
         newValue.push(value);
       } else {
         newValue = newValue.filter((item) => item !== value);
       }
-      setProjectData({
-        ...projectData,
+      setTodoData({
+        ...todoData,
         library: newValue,
       });
     } else {
-      setProjectData({
-        ...projectData,
+      setTodoData({
+        ...todoData,
         [name]: e.target.value,
       });
     }
   };
 
-  const addProject = async () => {
+  const addTodo = async () => {
     try {
-      console.log(projectData);
+      console.log(todoData);
 
       const requestBodyPayload = {
-        title: projectData.title,
-        date: projectData.date,
-        description: projectData.description,
+        title: todoData.title,
+        date: todoData.date,
+        description: todoData.description,
         technology: {
-          uiTech: projectData.uiTech,
-          backEndTech: projectData.backEndTech,
+          uiTech: todoData.uiTech,
+          backEndTech: todoData.backEndTech,
         },
-        library: projectData.library,
+        library: todoData.library,
       };
 
-      await dispatch(createProjectAction(requestBodyPayload)).unwrap();
+      await dispatch(createTodoAction(requestBodyPayload)).unwrap();
 
-      setProjectData({
+      setTodoData({
         date: "",
         title: "",
         description: "",
@@ -65,7 +65,7 @@ function CreateProject() {
         backEndTech: "",
         library: [],
       });
-      navigate("/project");
+      navigate("/todo");
     } catch (error) {}
   };
   return (
@@ -76,7 +76,7 @@ function CreateProject() {
           <input
             type="date"
             name="date"
-            value={projectData.date}
+            value={todoData.date}
             placeholder="yyyy-mm-dd"
             onChange={(e) => handleInputChange(e)}
           />
@@ -84,22 +84,22 @@ function CreateProject() {
           <br />
         </div>
         <div>
-          <label>Project Title:</label>
+          <label>Todo Title:</label>
           <input
             type="text"
             name="title"
-            value={projectData.title}
-            placeholder="Enter Project Title"
+            value={todoData.title}
+            placeholder="Enter Todo Title"
             onChange={(e) => handleInputChange(e)}
           />
           <br />
           <br />
         </div>
         <div>
-          <label>Project Description:</label>
+          <label>Todo Description:</label>
           <textarea
             name="description"
-            value={projectData.description}
+            value={todoData.description}
             placeholder="Enter description"
             onChange={(e) => handleInputChange(e)}
           ></textarea>
@@ -110,7 +110,7 @@ function CreateProject() {
           <label>UI Technology:</label>
           <select
             name="uiTech"
-            value={projectData.uiTech}
+            value={todoData.uiTech}
             onChange={(e) => handleInputChange(e)}
           >
             <option value="select">Select</option>
@@ -129,7 +129,7 @@ function CreateProject() {
             type="radio"
             name="backEndTech"
             value="python"
-            checked={projectData.backEndTech === "python"}
+            checked={todoData.backEndTech === "python"}
             onChange={(e) => handleInputChange(e)}
           />
           <label>.NET</label>
@@ -137,7 +137,7 @@ function CreateProject() {
             type="radio"
             name="backEndTech"
             value="net"
-            checked={projectData.backEndTech === "net"}
+            checked={todoData.backEndTech === "net"}
             onChange={(e) => handleInputChange(e)}
           />
           <label>PHP</label>
@@ -145,7 +145,7 @@ function CreateProject() {
             type="radio"
             name="backEndTech"
             value="php"
-            checked={projectData.backEndTech === "php"}
+            checked={todoData.backEndTech === "php"}
             onChange={(e) => handleInputChange(e)}
           />
           <br />
@@ -159,7 +159,7 @@ function CreateProject() {
             name="library"
             value="redux"
             checked={
-              projectData.library && projectData.library.includes("redux")
+              todoData.library && todoData.library.includes("redux")
             }
             onChange={(e) => handleInputChange(e)}
           />
@@ -169,7 +169,7 @@ function CreateProject() {
             name="library"
             value="saga"
             checked={
-              projectData.library && projectData.library.includes("saga")
+              todoData.library && todoData.library.includes("saga")
             }
             onChange={(e) => handleInputChange(e)}
           />
@@ -179,7 +179,7 @@ function CreateProject() {
             name="library"
             value="numpy"
             checked={
-              projectData.library && projectData.library.includes("numpy")
+              todoData.library && todoData.library.includes("numpy")
             }
             onChange={(e) => handleInputChange(e)}
           />
@@ -189,7 +189,7 @@ function CreateProject() {
             name="library"
             value="pandas"
             checked={
-              projectData.library && projectData.library.includes("pandas")
+              todoData.library && todoData.library.includes("pandas")
             }
             onChange={(e) => handleInputChange(e)}
           />
@@ -197,14 +197,14 @@ function CreateProject() {
           <br />
         </div>
         <div>
-          <button type="button" onClick={() => addProject()}>
-            AddProject
+          <button type="button" onClick={() => addTodo()}>
+            AddTodo
           </button>
           <button type="button">Reset</button>
           <button
             type="button"
             onClick={() => {
-              navigate("/project");
+              navigate("/todo");
             }}
           >
             Cancel
@@ -215,4 +215,4 @@ function CreateProject() {
   );
 }
 
-export default CreateProject;
+export default CreateTodo;

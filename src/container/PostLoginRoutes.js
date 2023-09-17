@@ -6,7 +6,7 @@ import Home from "../pages/home/Home";
 import Sidebar from "../component/navigation/Sidebar";
 import Counting from "../pages/counting/Counting";
 import Student from "../pages/student/Student";
-import Project from "../pages/project/Project";
+import Todo from "../pages/todo/Todo";
 
 function RoutingPostLogin() {
   return (
@@ -17,7 +17,7 @@ function RoutingPostLogin() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/project/*" element={<Project />} />
+        <Route path="/todo/*" element={<Todo />} />
         <Route path="/counting" element={<Counting />} />
         <Route path="/student" element={<Student />} />
       </Routes>

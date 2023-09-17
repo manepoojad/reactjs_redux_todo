@@ -3,46 +3,46 @@ import { useNavigate } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { getProjectListAction, deleteProjectAction } from '../../redux/thunk/projectThunk'
+import { getTodoListAction, deleteTodoAction } from '../../redux/thunk/todoThunk'
 
 
 
 
-function ProjectList() {
+function TodoList() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const state = useSelector(state => state)
   console.log(state)
 
-  const projectList = state.project.projectList
+  const todoList = state.todo.todoList
 
   useEffect(() => {
-    dispatch(getProjectListAction())
+    dispatch(getTodoListAction())
 
   }, [])
 
-  const handleDeleteProjectData = async (projectId) => {
-    await dispatch(deleteProjectAction(projectId))
-    dispatch(getProjectListAction())
+  const handleDeleteTodoData = async (todoId) => {
+    await dispatch(deleteTodoAction(todoId))
+    dispatch(getTodoListAction())
 
   }
 
-  const handleEditProjectData = (item) => {
-    navigate(`/project/edit/${item.id}`, {
+  const handleEditTodoData = (item) => {
+    navigate(`/todo/edit/${item.id}`, {
       state: {
-        projectData: { ...item }
+        todoData: { ...item }
 
       }
     })
 
   }
 
-  const handleProjectDetailData = (item) => {
+  const handleTodoDetailData = (item) => {
     // debugger
 
-    navigate(`/project/detail/${item.id}`, {
+    navigate(`/todo/detail/${item.id}`, {
       state: {
-        projectData: { ...item }
+        todoData: { ...item }
       }
     })
 
@@ -51,16 +51,16 @@ function ProjectList() {
   return (
     <div>
       {
-        state.project.isLoading && <div>loading...</div>
+        state.todo.isLoading && <div>loading...</div>
       }
 
       <div className='d-flex justify-content-end'>
-        <NavLink to='/project/create'>
-          <button style={{ color: 'blanchedalmond' }}>Create Project</button>
+        <NavLink to='/todo/create'>
+          <button style={{ color: 'blanchedalmond' }}>Create Todo</button>
         </NavLink>
       </div>
 
-      <h4>Project</h4>
+      <h4>Todo</h4>
       <Table variant='dark' striped>
         <thead>
           <tr>
@@ -76,7 +76,7 @@ function ProjectList() {
         </thead>
         <tbody>
           {
-            projectList && projectList.map((item, index) => {
+            todoList && todoList.map((item, index) => {
               console.log(item)
               {
                 return (
@@ -89,9 +89,9 @@ function ProjectList() {
                     <td>{item.technology && item.technology.backEndTech}</td>
                     <td>{item.library.join(", ")}</td>
                     <td>
-                      <button type="button" onClick={() => handleDeleteProjectData(item.id)} >Delete</button>
-                      <button type="button" onClick={() => handleEditProjectData(item)}>Edit</button>
-                      <button type='button' onClick={() => handleProjectDetailData(item)}>Details</button>
+                      <button type="button" onClick={() => handleDeleteTodoData(item.id)} >Delete</button>
+                      <button type="button" onClick={() => handleEditTodoData(item)}>Edit</button>
+                      <button type='button' onClick={() => handleTodoDetailData(item)}>Details</button>
                     </td>
 
                   </tr>
@@ -105,4 +105,4 @@ function ProjectList() {
   )
 }
 
-export default ProjectList
+export default TodoList

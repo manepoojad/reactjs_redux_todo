@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-export const getProjectListAction = createAsyncThunk(
-    'project/getProjectListAction',
+export const getTodoListAction = createAsyncThunk(
+    'todo/getTodoListAction',
     async (arg, thunkAPI) => {
         try {
             /*
-             response = await fetch('http://localhost:8888/project', {
+             response = await fetch('http://localhost:8888/todo', {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -18,7 +18,7 @@ export const getProjectListAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.get('http://localhost:8000/project');
+            const response = await axios.get('http://localhost:8000/todo');
             const responseData = response.data
 
             return responseData
@@ -28,12 +28,12 @@ export const getProjectListAction = createAsyncThunk(
     }
 )
 
-export const createProjectAction = createAsyncThunk(
-    'project/createProjectAction',
+export const createTodoAction = createAsyncThunk(
+    'todo/createTodoAction',
     async (arg, thunkAPI) => {
         try {
             /*
-            const response = await fetch('http://localhost:8888/project', {
+            const response = await fetch('http://localhost:8888/todo', {
                 method: "POST",
                 body: JSON.stringify(arg),
                 headers: {
@@ -46,7 +46,7 @@ export const createProjectAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.post('http://localhost:8000/project', arg)
+            const response = await axios.post('http://localhost:8000/todo', arg)
             const responseData = response.data
 
             return responseData
@@ -57,12 +57,12 @@ export const createProjectAction = createAsyncThunk(
 )
 
 
-export const updateProjectAction = createAsyncThunk(
-    'project/updateProjectAction',
+export const updateTodoAction = createAsyncThunk(
+    'todo/updateTodoAction',
     async (arg, thunkAPI) => {
         try {
             /*
-            const response = await fetch('http://localhost:8888/project', {
+            const response = await fetch('http://localhost:8888/todo', {
                 method: "PUT",
                 body: JSON.stringify(arg),
                 headers: {
@@ -75,7 +75,7 @@ export const updateProjectAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.put('http://localhost:8000/project', arg)
+            const response = await axios.put('http://localhost:8000/todo', arg)
             const responseData = response.data
 
             return responseData
@@ -86,12 +86,12 @@ export const updateProjectAction = createAsyncThunk(
 )
 
 
-export const deleteProjectAction = createAsyncThunk(
-    'project/deleteProjectAction',
+export const deleteTodoAction = createAsyncThunk(
+    'todo/deleteTodoAction',
     async (arg, thunkAPI) => {
         try {
             /*
-            const response = await fetch(`http://localhost:8888/project/${arg}`, {
+            const response = await fetch(`http://localhost:8888/todo/${arg}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -103,7 +103,7 @@ export const deleteProjectAction = createAsyncThunk(
             }
             */
 
-            const response = await axios.delete(`http://localhost:8000/project/${arg}`);
+            const response = await axios.delete(`http://localhost:8000/todo/${arg}`);
             const responseData = response.data
 
             return responseData

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useParams, useNavigate } from "react-router-dom"
-import { updateProjectAction } from "../../redux/thunk/projectThunk"
+import { updateTodoAction } from "../../redux/thunk/todoThunk"
 import { useDispatch } from "react-redux"
 
-function EditProject() {
+function EditTodo() {
     const navigate = useNavigate()
     const location = useLocation()
     const params = useParams()
     // console.log(params)
     const dispatch = useDispatch()
 
-    const [projectData, setProjectData] = useState({
+    const [todoData, setTodoData] = useState({
         date: "",
         title: "",
         description: "",
@@ -21,22 +21,22 @@ function EditProject() {
 
     useEffect(() => {
         console.log(location)
-        const projectDataFromLocation = location.state.projectData
-        console.log(projectDataFromLocation)
-        const newProjectData = {
-            date: projectDataFromLocation.date,
-            title: projectDataFromLocation.title,
-            description: projectDataFromLocation.description,
-            uiTech: projectDataFromLocation.technology && projectDataFromLocation.technology.uiTech,
-            backEndTech: projectDataFromLocation.technology && projectDataFromLocation.technology.backEndTech,
-            library: projectDataFromLocation.library
+        const todoDataFromLocation = location.state.todoData
+        console.log(todoDataFromLocation)
+        const newTodoData = {
+            date: todoDataFromLocation.date,
+            title: todoDataFromLocation.title,
+            description: todoDataFromLocation.description,
+            uiTech: todoDataFromLocation.technology && todoDataFromLocation.technology.uiTech,
+            backEndTech: todoDataFromLocation.technology && todoDataFromLocation.technology.backEndTech,
+            library: todoDataFromLocation.library
         }
-        // console.log(newProjectData)
-        setProjectData({
-            ...newProjectData
+        // console.log(newTodoData)
+        setTodoData({
+            ...newTodoData
         })
     }, [])
-    // console.log(projectData)
+    // console.log(todoData)
 
     const handleInputChange = (e) => {
         const name = e.target.name
@@ -45,7 +45,7 @@ function EditProject() {
 
         if (type == "checkbox") {
             const checked = e.target.checked
-            let newValue = [...projectData.library]
+            let newValue = [...todoData.library]
             if (checked) {
                 newValue.push(value)
 
@@ -54,39 +54,39 @@ function EditProject() {
                 newValue = newValue.filter(item => item !== value)
 
             }
-            setProjectData({
-                ...projectData,
+            setTodoData({
+                ...todoData,
                 library: newValue
             })
         }
         else {
-            setProjectData({
-                ...projectData,
+            setTodoData({
+                ...todoData,
                 [name]: e.target.value,
             })
         }
     }
-    // console.log(projectData)
+    // console.log(todoData)
 
-    const updateProjectData = async () => {
+    const updateTodoData = async () => {
         try {
-            const projectDataFromLocation = location.state.projectData
+            const todoDataFromLocation = location.state.todoData
             const requestPayload =
             {
-                id: projectDataFromLocation.id,
-                title: projectData.title,
-                date: projectData.date,
-                description: projectData.description,
+                id: todoDataFromLocation.id,
+                title: todoData.title,
+                date: todoData.date,
+                description: todoData.description,
                 technology: {
-                    uiTech: projectData.uiTech,
-                    backEndTech: projectData.backEndTech,
+                    uiTech: todoData.uiTech,
+                    backEndTech: todoData.backEndTech,
                 },
-                library: projectData.library
+                library: todoData.library
             }
 
-            dispatch(updateProjectAction(requestPayload))
+            dispatch(updateTodoAction(requestPayload))
 
-            setProjectData({
+            setTodoData({
                 date: "",
                 title: "",
                 description: "",
@@ -94,7 +94,7 @@ function EditProject() {
                 backEndTech: "",
                 library: []
             })
-            navigate("/project")
+            navigate("/todo")
 
         } catch (error) {
             console.log(error)
@@ -102,8 +102,8 @@ function EditProject() {
 
     }
 
-    const handleCancelProjectForm = () => {
-        setProjectData({
+    const handleCancelTodoForm = () => {
+        setTodoData({
             date: "",
             title: "",
             description: "",
@@ -111,7 +111,7 @@ function EditProject() {
             backEndTech: "",
             library: []
         })
-        navigate("/project")
+        navigate("/todo")
     }
 
     return (
@@ -122,26 +122,26 @@ function EditProject() {
                     <input
                         type="date"
                         name="date"
-                        value={projectData.date}
+                        value={todoData.date}
                         placeholder="yyyy-mm-dd"
                         onChange={e => handleInputChange(e)}
                     /><br /><br />
                 </div>
                 <div>
-                    <label>Project Title:</label>
+                    <label>Todo Title:</label>
                     <input
                         type="text"
                         name="title"
-                        value={projectData.title}
-                        placeholder="Enter Project Title"
+                        value={todoData.title}
+                        placeholder="Enter Todo Title"
                         onChange={e => handleInputChange(e)}
                     /><br /><br />
                 </div>
                 <div>
-                    <label>Project Description:</label>
+                    <label>Todo Description:</label>
                     <textarea
                         name="description"
-                        value={projectData.description}
+                        value={todoData.description}
                         placeholder="Enter description"
                         onChange={e => handleInputChange(e)}
                     >
@@ -151,7 +151,7 @@ function EditProject() {
                     <label>UI Technology:</label>
                     <select
                         name="uiTech"
-                        value={projectData.uiTech}
+                        value={todoData.uiTech}
                         onChange={e => handleInputChange(e)}>
                         <option value="select">Select</option>
                         <option value="react">React</option>
@@ -167,7 +167,7 @@ function EditProject() {
                         type="radio"
                         name="backEndTech"
                         value="python"
-                        checked={projectData.backEndTech === "python"}
+                        checked={todoData.backEndTech === "python"}
                         onChange={e => handleInputChange(e)}
                     />
                     <label>.NET</label>
@@ -175,7 +175,7 @@ function EditProject() {
                         type="radio"
                         name="backEndTech"
                         value="net"
-                        checked={projectData.backEndTech === "net"}
+                        checked={todoData.backEndTech === "net"}
                         onChange={e => handleInputChange(e)}
                     />
                     <label>PHP</label>
@@ -183,7 +183,7 @@ function EditProject() {
                         type="radio"
                         name="backEndTech"
                         value="php"
-                        checked={projectData.backEndTech === "php"}
+                        checked={todoData.backEndTech === "php"}
                         onChange={e => handleInputChange(e)}
                     /><br /><br />
                 </div>
@@ -194,7 +194,7 @@ function EditProject() {
                         type="checkbox"
                         name="library"
                         value="redux"
-                        checked={projectData.library && projectData.library.includes("redux")}
+                        checked={todoData.library && todoData.library.includes("redux")}
                         onChange={e => handleInputChange(e)}
                     />
                     <label>Saga</label>
@@ -202,7 +202,7 @@ function EditProject() {
                         type="checkbox"
                         name="library"
                         value="saga"
-                        checked={projectData.library && projectData.library.includes("saga")}
+                        checked={todoData.library && todoData.library.includes("saga")}
                         onChange={e => handleInputChange(e)}
                     />
                     <label>Numpy</label>
@@ -210,7 +210,7 @@ function EditProject() {
                         type="checkbox"
                         name="library"
                         value="numpy"
-                        checked={projectData.library && projectData.library.includes("numpy")}
+                        checked={todoData.library && todoData.library.includes("numpy")}
                         onChange={e => handleInputChange(e)}
                     />
                     <label>Pandas</label>
@@ -218,17 +218,17 @@ function EditProject() {
                         type="checkbox"
                         name="library"
                         value="pandas"
-                        checked={projectData.library && projectData.library.includes("pandas")}
+                        checked={todoData.library && todoData.library.includes("pandas")}
                         onChange={e => handleInputChange(e)}
                     /><br /><br />
                 </div>
                 <div>
-                    <button type='button' onClick={() => updateProjectData()}>UpdateProject</button>
-                    <button type='button' onClick={() => handleCancelProjectForm()}>Cancel</button>
+                    <button type='button' onClick={() => updateTodoData()}>UpdateTodo</button>
+                    <button type='button' onClick={() => handleCancelTodoForm()}>Cancel</button>
                 </div>
             </form>
         </div>
     )
 }
 
-export default EditProject
+export default EditTodo

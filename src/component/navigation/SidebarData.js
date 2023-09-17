@@ -22,9 +22,9 @@ import LoginIcon from '@mui/icons-material/Login';
         link:"/contactUs"
     },
     {
-        title:"Project",
+        title:"Todo",
         icon:<TaskIcon/>,
-        link:"/project"
+        link:"/todo"
     },
     {
         title:"Count",
