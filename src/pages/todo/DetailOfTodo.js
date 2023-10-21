@@ -24,7 +24,7 @@ function DetailOfTodo() {
     useEffect(() => {
 
         console.log(location)
-        const newTodoData = location.state.todoData
+        const newTodoData = location?.state?.todoData
         console.log(newTodoData)
         setTodoData({
             ...newTodoData

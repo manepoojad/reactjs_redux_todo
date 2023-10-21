@@ -12,7 +12,7 @@ function Todo() {
     <Routes>
       <Route
         path={`/`}
-        element={<Navigate replace="/" to={`${location.pathname}/list`} />}
+        element={<Navigate replace="/" to={`${location?.pathname}/list`} />}
       />
       <Route path={"list"} element={<TodoList />} />
       <Route path={"create"} element={<CreateTodo />} />

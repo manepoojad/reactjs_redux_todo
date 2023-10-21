@@ -1,23 +1,60 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PostLoginRoutes from './PostLoginRoutes';
-import LogIn from '../pages/logIn/LogIn';
+import React, { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { ThemeContextProvider } from "../context/theme";
+import PostLoginRoutes from "./PostLoginRoutes";
+import Login from "../pages/logIn/LogIn";
+import Cookies from "js-cookie";
 
 function RootRouting() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
+
+  useEffect(() => {
+    const isAuthenticate = getAuthStatus();
+    if (!isAuthenticate) {
+      navigate("/login");
+    }
+  }, [location?.pathname]);
+
+  const getAuthStatus = () => {
+    const userToken = Cookies.get("userAuth") || "";
+    if (userToken) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
-    <BrowserRouter>
+    <ThemeContextProvider Theme={"light"}>
       <Routes>
         <Route
-          path="/logIn"
-          element={<LogIn />}
+          path="/login"
+          element={
+            getAuthStatus() ? <Navigate replace to="/" /> : <Login />
+          }
         />
         <Route
-          path='/*'
-          element={<PostLoginRoutes />}
+          path="/*"
+          element={
+            getAuthStatus() ? (
+              <PostLoginRoutes />
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
         />
       </Routes>
-    </BrowserRouter>
-  )
+    </ThemeContextProvider>
+  );
 }
 
-export default RootRouting
+export default RootRouting;

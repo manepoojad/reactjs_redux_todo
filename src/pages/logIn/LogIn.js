@@ -1,83 +1,94 @@
-import './login.css'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { userLoginAction } from '../../redux/thunk/authThunk';
+import "./login.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLoginAction } from "../../redux/thunk/authThunk";
+import Cookies from "js-cookie";
 
 function LogIn() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
+ 
 
   const handleUserNameChange = (e) => {
-    const { value, type, name } = e.target
-    setUserName(value)
-  }
+    const { value, type, name } = e.target;
+    setUserName(value);
+  };
   // console.log(userName)
 
   const handlePasswordChange = (e) => {
-    const { value, type, name } = e.target
-    setPassword(value)
-  }
+    const { value, type, name } = e.target;
+    setPassword(value);
+  };
   // console.log(password)
 
   const handleSubmit = async () => {
     try {
       const requestLoginPayload = {
         email: userName,
-        password: password
-      }
-      const responseData = await dispatch(userLoginAction(requestLoginPayload)).unwrap()
-      const stringifyData = JSON.stringify(responseData)
-      localStorage.setItem("loginData", stringifyData)
+        password: password,
+      };
+      const responseData = await dispatch(
+        userLoginAction(requestLoginPayload)
+      ).unwrap();
 
-      navigate("/")
-
+      navigate('/')
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handleCancelLogin = () => {
-    setUserName("")
-    setPassword("")
-
-  }
+    setUserName("");
+    setPassword("");
+  };
 
   return (
-    <div className='loginFormWrapper'>
+    <div className="loginFormWrapper">
       <form>
-        <label><b>Username</b></label>
+        <label>
+          <b>Username</b>
+        </label>
         <input
           type="text"
-          name='userName'
+          name="userName"
           placeholder="Enter Username"
           value={userName}
-          onChange={e => handleUserNameChange(e)}
+          onChange={(e) => handleUserNameChange(e)}
         />
         <br />
-        <label><b>Password</b></label>
+        <label>
+          <b>Password</b>
+        </label>
         <input
           type="password"
-          name='password'
+          name="password"
           placeholder="Enter Password"
           value={password}
-          onChange={e => handlePasswordChange(e)}
+          onChange={(e) => handlePasswordChange(e)}
         />
         <br />
         <div>
-          <button type="button" onClick={() => handleSubmit()}>LogIn</button>
+          <button type="button" onClick={() => handleSubmit()}>
+            LogIn
+          </button>
         </div>
         <div className="container">
-          <button type="button" className="cancelbtn" onClick={() => handleCancelLogin()}>Cancel</button>
+          <button
+            type="button"
+            className="cancelbtn"
+            onClick={() => handleCancelLogin()}
+          >
+            Cancel
+          </button>
           <a href="#">Forgot password?</a>
         </div>
-
       </form>
     </div>
-  )
+  );
 }
 
-export default LogIn
+export default LogIn;
