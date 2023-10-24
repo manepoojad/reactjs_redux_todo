@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createTodoAction } from "../../redux/thunk/todoThunk";
+import { createTodoSchema } from "./todoSchema";
+import FormFieldSchemaRender from "../../components/schemaRender/FormFieldSchemaRender";
 
 function CreateTodo() {
   const navigate = useNavigate();
@@ -71,6 +73,19 @@ function CreateTodo() {
   return (
     <div>
       <form>
+        <div>
+          {createTodoSchema.map((item, index) => (
+            <FormFieldSchemaRender
+              key={`${item.type}_${item.name}`}
+              formFieldItem={item}
+              formValueObject={todoData}
+              onChange={(e) => handleInputChange(e)}
+            />
+          ))}
+        </div>
+        <div>
+          --------------------------------------------------------------------------
+        </div>
         <div>
           <label>Date:</label>
           <input
@@ -158,9 +173,7 @@ function CreateTodo() {
             type="checkbox"
             name="library"
             value="redux"
-            checked={
-              todoData.library && todoData.library.includes("redux")
-            }
+            checked={todoData.library && todoData.library.includes("redux")}
             onChange={(e) => handleInputChange(e)}
           />
           <label>Saga</label>
@@ -168,9 +181,7 @@ function CreateTodo() {
             type="checkbox"
             name="library"
             value="saga"
-            checked={
-              todoData.library && todoData.library.includes("saga")
-            }
+            checked={todoData.library && todoData.library.includes("saga")}
             onChange={(e) => handleInputChange(e)}
           />
           <label>Numpy</label>
@@ -178,9 +189,7 @@ function CreateTodo() {
             type="checkbox"
             name="library"
             value="numpy"
-            checked={
-              todoData.library && todoData.library.includes("numpy")
-            }
+            checked={todoData.library && todoData.library.includes("numpy")}
             onChange={(e) => handleInputChange(e)}
           />
           <label>Pandas</label>
@@ -188,9 +197,7 @@ function CreateTodo() {
             type="checkbox"
             name="library"
             value="pandas"
-            checked={
-              todoData.library && todoData.library.includes("pandas")
-            }
+            checked={todoData.library && todoData.library.includes("pandas")}
             onChange={(e) => handleInputChange(e)}
           />
           <br />
