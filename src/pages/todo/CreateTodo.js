@@ -12,7 +12,7 @@ function CreateTodo() {
     date: "",
     title: "",
     description: "",
-    backEndTech: "",
+    backEndTech: "python",
     uiTech: "",
     library: [],
   });
